@@ -6,6 +6,7 @@ import (
 	"github.com/knative/pkg/apis/istio/v1alpha3"
 	controllergen "github.com/rancher/wrangler/pkg/controller-gen"
 	"github.com/rancher/wrangler/pkg/controller-gen/args"
+	tektonv1alpha1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
 	appsv1 "k8s.io/api/apps/v1"
 	batchv1 "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"
@@ -90,6 +91,15 @@ func main() {
 				ClientSetPackage: "github.com/knative/build/pkg/client/clientset/versioned",
 				InformersPackage: "github.com/knative/build/pkg/client/informers/externalversions",
 				ListersPackage:   "github.com/knative/build/pkg/client/listers",
+			},
+			"pipelines.tekton.dev": {
+				Types: []interface{}{
+					tektonv1alpha1.TaskRun{},
+				},
+				PackageName:      "pipeline",
+				ClientSetPackage: "github.com/tektoncd/pipeline/pkg/client/clientset/versioned",
+				InformersPackage: "github.com/tektoncd/pipeline/pkg/client/informers/externalversions",
+				ListersPackage:   "github.com/tektoncd/pipeline/pkg/client/listers",
 			},
 			"networking.istio.io": {
 				Types: []interface{}{
